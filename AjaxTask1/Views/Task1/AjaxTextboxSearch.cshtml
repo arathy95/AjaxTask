@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "AjaxTextboxSearch";
+}
+
+<h2>Ajax Textbox Search</h2>
+<center>
+    <th>
+        <input type="text" id="txtsearch" placeholder="Enter name to search..." />
+    </th>
+    <table border="1">
+        <tr>
+            
+            <th>Name</th>
+            <th>Email ID</th>
+            <th>Contact No</th>
+        </tr>
+        <br />
+        <br />
+        <br />
+
+        @foreach (var item in ViewBag.result)
+        {
+    <tr>
+        
+        <td>@item.name</td>
+        <td>@item.emailid</td>
+        <td>@item.contactno</td>
+    </tr>
+        }
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $("#txtsearch").on("keyup", function () {
+            var txtenter = $(this).val();
+            $("table tr").each(function (result) {
+                var isPostBackObject = document.getElementById('isPostBack');
+                
+
+                if (result !== 0) {
+                    var name = $(this).find("td:nth-child(1)").text();
+                    if (name.indexOf(txtenter) !== 0 && name.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                        $(this).hide();
+                    }
+                    //else if (txtenter == 0 || txtsearch == null)
+                    //{
+                    //    result == null;
+                    //}
+                    else
+                    {
+                        $(this).show();
+                    }
+                }
+            });
+        });
+    </script>
+
+</center>

@@ -1,0 +1,36 @@
+﻿@model AjaxTask1.Models.DeptSubDeptViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="form-group">
+    <div class="form-group">
+        @if (ViewBag.deptlist != null)
+        {
+            @Html.DropDownListFor(model => model.deptid, ViewBag.deptlist as SelectList, "--Select Department--", new { @class = "form-control" })
+        }
+    </div>
+
+
+    <div class="form-group">
+        @Html.DropDownListFor(model => model.subdeptid, new SelectList(" "), "--Select SubDepartment--", new { @class = "form-control" })
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#deptid").change(function () {
+            $.get("/Task3/GetSubdeptList", { deptid: $("#deptid"),val() },function (data) {
+                $("#subdept").empty();
+                $.each(data, function (index, row) {
+                    $("#subdeptid").append("<option value='" + row.subdeptid + "'>"+row.subdeptname+"</option>")
+                });
+            });
+
+        })
+    });
+</script>

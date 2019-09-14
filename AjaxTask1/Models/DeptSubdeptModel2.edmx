@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AjaxTask1Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Department">
+          <Key>
+            <PropertyRef Name="deptid" />
+          </Key>
+          <Property Name="deptid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deptname" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_SubDepartment">
+          <Key>
+            <PropertyRef Name="subdeptid" />
+          </Key>
+          <Property Name="subdeptid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subdeptname" Type="varchar" MaxLength="50" />
+          <Property Name="FKdeptid" Type="int" />
+        </EntityType>
+        <Association Name="FK_tbl_SubDepartment_tbl_Department">
+          <End Role="tbl_Department" Type="Self.tbl_Department" Multiplicity="0..1" />
+          <End Role="tbl_SubDepartment" Type="Self.tbl_SubDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Department">
+              <PropertyRef Name="deptid" />
+            </Principal>
+            <Dependent Role="tbl_SubDepartment">
+              <PropertyRef Name="FKdeptid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AjaxTask1Model1StoreContainer">
+          <EntitySet Name="tbl_Department" EntityType="Self.tbl_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SubDepartment" EntityType="Self.tbl_SubDepartment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_SubDepartment_tbl_Department" Association="Self.FK_tbl_SubDepartment_tbl_Department">
+            <End Role="tbl_Department" EntitySet="tbl_Department" />
+            <End Role="tbl_SubDepartment" EntitySet="tbl_SubDepartment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AjaxTask1Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Department">
+          <Key>
+            <PropertyRef Name="deptid" />
+          </Key>
+          <Property Name="deptid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_SubDepartment" Relationship="Self.FK_tbl_SubDepartment_tbl_Department" FromRole="tbl_Department" ToRole="tbl_SubDepartment" />
+        </EntityType>
+        <EntityType Name="tbl_SubDepartment">
+          <Key>
+            <PropertyRef Name="subdeptid" />
+          </Key>
+          <Property Name="subdeptid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subdeptname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FKdeptid" Type="Int32" />
+          <NavigationProperty Name="tbl_Department" Relationship="Self.FK_tbl_SubDepartment_tbl_Department" FromRole="tbl_SubDepartment" ToRole="tbl_Department" />
+        </EntityType>
+        <Association Name="FK_tbl_SubDepartment_tbl_Department">
+          <End Role="tbl_Department" Type="Self.tbl_Department" Multiplicity="0..1" />
+          <End Role="tbl_SubDepartment" Type="Self.tbl_SubDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Department">
+              <PropertyRef Name="deptid" />
+            </Principal>
+            <Dependent Role="tbl_SubDepartment">
+              <PropertyRef Name="FKdeptid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AjaxTask1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Department" EntityType="Self.tbl_Department" />
+          <EntitySet Name="tbl_SubDepartment" EntityType="Self.tbl_SubDepartment" />
+          <AssociationSet Name="FK_tbl_SubDepartment_tbl_Department" Association="Self.FK_tbl_SubDepartment_tbl_Department">
+            <End Role="tbl_Department" EntitySet="tbl_Department" />
+            <End Role="tbl_SubDepartment" EntitySet="tbl_SubDepartment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AjaxTask1Model1StoreContainer" CdmEntityContainer="AjaxTask1Entities1">
+          <EntitySetMapping Name="tbl_Department">
+            <EntityTypeMapping TypeName="AjaxTask1Model1.tbl_Department">
+              <MappingFragment StoreEntitySet="tbl_Department">
+                <ScalarProperty Name="deptid" ColumnName="deptid" />
+                <ScalarProperty Name="deptname" ColumnName="deptname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SubDepartment">
+            <EntityTypeMapping TypeName="AjaxTask1Model1.tbl_SubDepartment">
+              <MappingFragment StoreEntitySet="tbl_SubDepartment">
+                <ScalarProperty Name="subdeptid" ColumnName="subdeptid" />
+                <ScalarProperty Name="subdeptname" ColumnName="subdeptname" />
+                <ScalarProperty Name="FKdeptid" ColumnName="FKdeptid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
